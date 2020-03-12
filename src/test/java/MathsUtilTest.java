@@ -20,7 +20,7 @@ public class MathsUtilTest {
 	public void testFormultiplesOf3n5() {
 		boolean result = false;
 		MathsUtil util = new MathsUtil();		
-		for(String s : util.mathsTestmultiple3n5(inputArray)) {
+		for(String s : util.mathsTestmultiple3n5(100)) {
 			if(!(s.contains("Fizz") || s.contains("Buzz"))) {
 				int i = Integer.parseInt(s);
 				if(i%3 == 0 || i%5 == 0) {
@@ -37,7 +37,7 @@ public class MathsUtilTest {
 	@Test
 	public void testFizzBuzz() {
 		boolean result = false;
-		ArrayList<String> output = util.mathsTestmultiple3n5(inputArray);	
+		ArrayList<String> output = util.mathsTestmultiple3n5(100);	
 		for(String s : output) {			
 			if(s.contains("FizzBuzz")) {
 				int i = output.indexOf(s) + 1;
@@ -54,7 +54,7 @@ public class MathsUtilTest {
 	}
 	@Test
 	public void testlengthOfOutput() {
-		ArrayList<String> output = util.mathsTestmultiple3n5(inputArray);
+		ArrayList<String> output = util.mathsTestmultiple3n5(100);
 		assert(inputArray.length == output.size());
 			
 	}
@@ -63,7 +63,7 @@ public class MathsUtilTest {
 	public void testFormultiplesOf3n5Stage2() {
 		boolean result = false;
 		MathsUtil util = new MathsUtil();		
-		for(String s : util.mathsTestmultiple3n5Stage2(inputArray)) {
+		for(String s : util.mathsTestmultiple3n5Stage2(100)) {
 			if(!(s.contains("Fizz") || s.contains("Buzz"))) {
 				int i = Integer.parseInt(s);
 				if(i%3 == 0 || Integer.toString(i).contains("3") || i%5 == 0 || Integer.toString(i).contains("5")) {
@@ -80,7 +80,7 @@ public class MathsUtilTest {
 	@Test
 	public void testFizzBuzzStage2() {
 		boolean result = false;
-		ArrayList<String> output = util.mathsTestmultiple3n5(inputArray);	
+		ArrayList<String> output = util.mathsTestmultiple3n5(100);	
 		for(String s : output) {			
 			if(s.contains("FizzBuzz")) {
 				int i = output.indexOf(s) + 1;
@@ -91,6 +91,20 @@ public class MathsUtilTest {
 			
 		}
 		assert(result);
+			
+	}
+	@Test
+	public void testFizzBuzzStage2inputlt0() {
+		ArrayList<String> output = util.mathsTestmultiple3n5(0);	
+		assertTrue(output.size() == 1);
+		assertEquals(output.get(0), "Error : Please enter value greater than 0");
+	}
+	
+	@Test
+	public void testFizzBuzzStage2inputlt0Stage2() {
+		ArrayList<String> output = util.mathsTestmultiple3n5Stage2(0);	
+		assertTrue(output.size() == 1);
+		assertEquals(output.get(0), "Error : Please enter value greater than 0");
 			
 	}
 }

@@ -1,67 +1,85 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MathsUtil {
 
 	public static void main(String[] args) {		
-		int [] inputArray = new int[100];
-		for (int i=0;i < 100;++i){
-			inputArray[i]=i+1;
-			}
+
 		MathsUtil util = new MathsUtil();
 		System.out.println("---------------------#Stage 1 output------------------------");
-		for(String i:util.mathsTestmultiple3n5(inputArray)) System.out.println(i);
+		util.mathsTestmultiple3n5(100).forEach((String s) -> System.out.println(s));
 		System.out.println("------------------------------------------------------------");
 		System.out.println("---------------------#Stage 2 output------------------------");
-		for(String i:util.mathsTestmultiple3n5Stage2(inputArray)) System.out.println(i);
+		util.mathsTestmultiple3n5Stage2(100).forEach((String s) -> System.out.println(s));
 		System.out.println("------------------------------------------------------------");
 	}
-	
-	public ArrayList<String> mathsTestmultiple3n5(int [] input)
+	public ArrayList<String> mathsTestmultiple3n5(int num)
 	{  
-		 ArrayList<String> outArray = new ArrayList<String>(); 
-		for(int i:input) {
-			if((i%3 == 0) && (i%5 == 0) )
-			{
-				outArray.add("FizzBuzz");
-			}
-			else if(i%3 == 0)
-			{
-				outArray.add("Fizz");
-			}
-			else if (i%5 == 0)
-			{
-				outArray.add("Buzz");
-			}
-			else
-			{
-				outArray.add(Integer.toString(i));
-			}
+		List<String> res = new ArrayList<>();
+		if(num<=0) {
+			res.add("Error : Please enter value greater than 0");			
+		} else {
+		ArrayList<Integer> inputList = (ArrayList<Integer>) IntStream.rangeClosed(1, num).boxed().collect(Collectors.toList());
+		ArrayList<String> outputList = (ArrayList<java.lang.String>) inputList.stream().map(i-> Integer.toString(i)).collect(Collectors.toList());
+        res = outputList.stream().map(j -> returnWithLogic(j)).collect(Collectors.toList());        
 		}
-		return outArray;
+		return (ArrayList<java.lang.String>) res;
 	}
-	public ArrayList<String> mathsTestmultiple3n5Stage2(int [] input)
+	public ArrayList<String> mathsTestmultiple3n5Stage2(int num)
 	{
-		ArrayList<String> outArray = new ArrayList<String>(); 
-		for(int i:input) {	
+		List<String> res = new ArrayList<>();
+		if(num<=0) {
+			res.add("Error : Please enter value greater than 0");			
+		} else {
+		ArrayList<Integer> inputArray = (ArrayList<Integer>) IntStream.rangeClosed(1, num).boxed().collect(Collectors.toList());
+		ArrayList<String> outputList = (ArrayList<String>) inputArray.stream().map(i -> Integer.toString(i)).collect(Collectors.toList());
+		res = outputList.stream().map(s -> returnWithLogicStage2(s)).collect(Collectors.toList());
+		}
+		return (ArrayList<String>) res;
+	}
+	private String returnWithLogic(String j)
+	{
+		String returnValue = j;
+		int i = Integer.parseInt(j); 
+		if((i%3 == 0) && (i%5 == 0) )
+		{
+			returnValue = "FizzBuzz";
+		}
+		else if(i%3 == 0)
+		{
+			returnValue =  "Fizz";
+		}
+		else if (i%5 == 0)
+		{
+			returnValue =  "Buzz";
+		} else			
+			returnValue =  j; 
+		
+		return returnValue;
+	}
+	
+	private String returnWithLogicStage2(String j)
+	{
+			String returnValue = j;
+			int i = Integer.parseInt(j);
 			if(((i%3 == 0) || ((Integer.toString(i).contains("3")))) && ((i%5 == 0) || ((Integer.toString(i).contains("5")))))
 			{
-				outArray.add("FizzBuzz");
+				returnValue = "FizzBuzz";
 			}
 			else if(i%3 == 0 || (Integer.toString(i).contains("3")))
 			{
-				outArray.add("Fizz");
+				returnValue =  "Fizz";
 			}
 			else if (i%5 == 0  || (Integer.toString(i).contains("5")))
 			{
-				outArray.add("Buzz");
+				returnValue =  "Buzz";
 			}
 			else 
-			{
-				outArray.add(Integer.toString(i));
-			}
-		}
-		return outArray;
+				returnValue =  j; 
+			
+			return returnValue;
 	}
-
 }
